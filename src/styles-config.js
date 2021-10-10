@@ -4,6 +4,7 @@ export default {
   "font-style": "normal",
   "font-weight": "normal",
   "font-size": "18px",
+  "title-font-size": "36px",
   "line-height": "25px",
 
   //border

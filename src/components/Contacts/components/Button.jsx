@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Text } from "./styled";
 
-export default function ButtonComponent({ text, color }) {
+export default function ButtonComponent({ text, color, round }) {
   return (
-    <Button color={color}>
+    <Button round={round} color={color}>
       <Text>{text}</Text>
     </Button>
   );

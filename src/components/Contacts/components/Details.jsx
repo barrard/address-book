@@ -1,5 +1,14 @@
 import React from "react";
-import { DetailsContainer } from "./styled";
+import { DetailsContainer, Input } from "./styled";
+import Button from "./Button";
+
 export default function Details() {
-  return <DetailsContainer>Deets</DetailsContainer>;
+  return (
+    <DetailsContainer>
+      <Input />
+
+      <Button color="red" text="Button"></Button>
+      <Button color="red" text="ButtonButton"></Button>
+    </DetailsContainer>
+  );
 }

@@ -9,11 +9,35 @@ export const Button = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0.1em;
-  border-radius: ${sc["border-radius"]};
+  border-radius: ${({ round }) => (round ? "50%" : sc["border-radius"])};
   overflow: hidden;
   cursor: pointer;
   &:hover {
     background: rgba(111, 111, 111, 0.5);
+  }
+`;
+
+export const RoundButton = styled.div`
+  border: 1px solid ${({ color }) => color};
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  padding: 0.1em;
+  border-radius: 50%;
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  font-size: 1.5em;
+  /* overflow: hidden; */
+  cursor: pointer;
+  &:hover {
+    background: rgba(111, 111, 111, 0.5);
+  }
+  &:before {
+    content: "${({ content }) => content}";
+    display: inline-flex;
+    font-size: 20px;
+    font-weight: bold;
   }
 `;
 
@@ -80,7 +104,7 @@ export const Title = styled.span`
   font-family: ${sc["font-family"]};
   font-style: ${sc["font-style"]};
   font-weight: ${sc["font-weight"]};
-  font-size: ${sc["font-size"]};
+  font-size: ${sc["title-font-size"]};
   line-height: ${sc["line-height"]};
 `;
 
