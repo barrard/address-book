@@ -9,7 +9,7 @@ export default function AddressBook() {
 	const [contacts, setContacts] = useState([]);
 	const [selectedContact, setSelectedContact] = useState(blankContact);
 
-	const saveContact = () => {
+	const saveContact = (contacts) => {
 		console.log(selectedContact);
 	};
 
