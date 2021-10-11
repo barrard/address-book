@@ -9,32 +9,28 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch, faMinus } from "@fortawesome/free-solid-svg-icons";
 import sc from "../styles-config";
-export default function EmailItem({ email }) {
+export default function EmailItem({ email, emails, setEmails }) {
 	const [hovered, setHovered] = useState(false);
 	return (
 		<StyledListItem
 			onMouseEnter={() => {
 				setHovered(true);
-				console.log("hover");
 			}}
 			onMouseLeave={() => {
 				setHovered(false);
-				console.log("leave");
 			}}
-			onClick={() => console.log(email)}
 		>
 			<Padding v="0.5em">
 				<Flex>
 					<StyledEmail href={`mailto: ${email}`}>{email}</StyledEmail>
-					{/* {!hovered && ( */}
-					<Padding
-						onClick={() => {
-							console.log("remove");
-						}}
-						display="inline"
-						l="1em"
-					>
-						<RedCircle>
+					<Padding display="inline" l="1em">
+						<RedCircle
+							onClick={() => {
+								let index = emails.indexOf(email);
+								emails.splice(index, 1);
+								setEmails([...emails]);
+							}}
+						>
 							<FontAwesomeIcon
 								color={sc["red"]}
 								size="xs"
@@ -42,7 +38,6 @@ export default function EmailItem({ email }) {
 							/>
 						</RedCircle>
 					</Padding>
-					{/* )} */}
 				</Flex>
 			</Padding>
 		</StyledListItem>

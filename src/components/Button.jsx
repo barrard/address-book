@@ -1,9 +1,20 @@
 import React from "react";
 import { Button, Text } from "./styled";
 
-export default function ButtonComponent({ text, color, bgColor, borderColor }) {
+export default function ButtonComponent({
+	onClick,
+	text,
+	color,
+	bgColor,
+	borderColor,
+}) {
 	return (
-		<Button bgColor={bgColor} color={color} borderColor={borderColor}>
+		<Button
+			onClick={onClick}
+			bgColor={bgColor}
+			color={color}
+			borderColor={borderColor}
+		>
 			<Text>{text}</Text>
 		</Button>
 	);

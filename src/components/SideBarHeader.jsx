@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useContext } from "react";
 import { Flex, Padding, Title } from "./styled";
 import AddContactsBtn from "./AddContactsBtn";
 

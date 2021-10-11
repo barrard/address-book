@@ -1,4 +1,5 @@
 import React from "react";
+import Context from "../Context";
 import { DetailsContainer } from "./styled";
 
 import SaveDetails from "./SaveDetails";
