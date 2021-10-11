@@ -1,7 +1,7 @@
-import Contacts from "./components/Contacts";
+import AddressBook from "./components/AddressBook";
 
 function App() {
-  return <Contacts />;
+	return <AddressBook />;
 }
 
 export default App;
