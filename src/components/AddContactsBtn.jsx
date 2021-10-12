@@ -8,11 +8,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddContactsBtn() {
-	let { createNewContact } = useContext(Context);
+	let { createNewContact, addNew, setAddNew } = useContext(Context);
 
 	return (
 		<RoundButton
-			onClick={createNewContact}
+			addNew={addNew}
+			onClick={() => {
+				setAddNew(true);
+				createNewContact();
+			}}
 			color={sc["white"]}
 			bgColor={sc["primary"]}
 		>

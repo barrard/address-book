@@ -1,4 +1,4 @@
-export default {
+const styles = {
 	//font
 	"font-family": "Nunito Sans",
 	"font-style": "normal",
@@ -33,3 +33,5 @@ export default {
 
 	sideWidth: "225px",
 };
+
+export default styles;

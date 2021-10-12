@@ -4,13 +4,19 @@ import sc from "../styles-config";
 import { Text, Padding, StyledListItem } from "./styled";
 export default function Contact({ contact }) {
 	let { id } = contact;
-	let { setSelectedContact, contacts } = useContext(Context);
-	const selected = false;
+	let { setSelectedContact, selectedContact, addNew, setAddNew } =
+		useContext(Context);
+
+	const selected = selectedContact.id === id;
 	const name = `${contact.fName} ${contact.lName}`;
 
 	return (
 		<StyledListItem
+			selected={selected}
 			onClick={() => {
+				if (addNew) {
+					setAddNew(false);
+				}
 				setSelectedContact(contact);
 			}}
 		>

@@ -7,9 +7,11 @@ export default function ButtonComponent({
 	color,
 	bgColor,
 	borderColor,
+	style,
 }) {
 	return (
 		<Button
+			style={{ ...style }}
 			onClick={onClick}
 			bgColor={bgColor}
 			color={color}

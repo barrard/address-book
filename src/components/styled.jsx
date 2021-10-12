@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import sc from "../styles-config";
 
-export const Button = styled.div`
+export const Button = styled.button`
+	user-select: none;
 	width: 133px;
 	height: 36px;
 	border: 1px solid ${({ borderColor, color }) => borderColor || color};
@@ -14,22 +15,22 @@ export const Button = styled.div`
 	border-radius: ${({ round }) => (round ? "50%" : sc["border-radius"])};
 	overflow: hidden;
 	cursor: pointer;
+
 	&:hover {
 		border: 1px solid rgba(111, 111, 111, 0.5);
 	}
 `;
 
 export const ButtonsContainer = styled.div`
+	padding-left: 5em;
 	position: absolute;
 	bottom: 3em;
-	/* display: flex; */
-	/* width: 100%; */
-	/* display: contents; */
+	height: 3em;
+	display: flex;
+	width: 100%;
 `;
 export const DetailsContainer = styled.div`
-	/* border: 1px solid green; */
 	width: 800px;
-	/* max-width: 800px; */
 	background: ${sc["light-1"]};
 	position: relative;
 `;
@@ -42,18 +43,15 @@ export const Flex = styled.div`
 `;
 
 export const FullScreenContainer = styled.div`
-	/* padding: 1em; */
 	min-width: 100vw;
 	max-width: 100vw;
-
 	min-height: 100vh;
 	max-height: 100vh;
 	box-sizing: border-box;
-
-	/* border: 1px solid blue; */
 	overflow: hidden;
 	display: flex;
 	justify-content: center;
+	background: #599;
 `;
 
 export const Input = styled.input`
@@ -85,23 +83,16 @@ export const Label = styled.label`
 export const LightBorder = styled.div`
 	border: 1px solid ${sc["light-2"]};
 	border-radius: ${sc["border-radius"]};
+
 	&:focus-visible {
 		outline: black;
 	}
 `;
 
 export const ListContainer = styled.div`
-	/* display: flex; */
-	/* flex-direction: column; */
-	/* border: 1px solid green; */
 	overflow-y: auto;
 	height: 100%;
 `;
-
-// export const ListItem = styled.div`
-// 	/* border: 1px solid blue; */
-// 	padding: ${({padding})=> padding|| '1em'};
-// `;
 
 export const Margin = styled.div`
 	padding: ${({ m }) => m};
@@ -132,17 +123,18 @@ export const RedCircle = styled.div`
 	justify-content: center;
 	align-items: center;
 	font-weight: normal;
+
 	&:hover {
 		background: rgba(111, 111, 111, 0.5);
 		font-weight: normal;
 	}
 `;
 
-export const RoundButton = styled.div`
-	border: 1px solid ${({ borderColor }) => borderColor};
+export const RoundButton = styled.button`
+	border: ${({ borderColor }) =>
+		borderColor ? `1px solid ${borderColor}` : "none"};
 	background: ${({ bgColor }) => bgColor};
 	color: ${({ color }) => color};
-
 	justify-content: center;
 	align-items: center;
 	padding: 0.3em;
@@ -152,53 +144,41 @@ export const RoundButton = styled.div`
 	min-height: 2em;
 	font-size: 1em;
 	cursor: pointer;
+	transition: all 0.3;
+	box-shadow: ${({ addNew }) => (addNew ? "0px 0px 9px 1px black" : "none")};
+
 	&:hover {
 		background: rgba(111, 111, 111, 0.5);
 	}
 `;
 
 export const SideBarContainer = styled.div`
-	/* border: 1px solid red; */
 	background: ${sc["white"]};
 	display: flex;
 	flex-direction: column;
 	min-width: ${sc["sideWidth"]};
 	max-width: ${sc["sideWidth"]};
 	overflow: hidden;
-	/* width: 20%; */
 `;
 
 export const StyledListItem = styled.div`
 	color: ${sc["dark-2"]};
+	background: ${({ selected }) => (selected ? sc["light-1"] : sc["white"])};
+
 	&:hover {
-		background: ${sc["light-1"]};
-		/* font-weight: 700; */
+		background: ${sc["light-gradient"]};
 		color: ${sc["dark-1"]};
-		/* border-style: inset;
-		border: 1px solid red; */
 	}
 `;
 
 export const StyledEmail = styled.a`
 	color: ${sc["dark-2"]};
 	text-decoration: none;
+
 	&:hover {
 		color: ${sc["dark-1"]};
 	}
 `;
-
-// export const StyledEmail = styled.div`
-// 	color: ${sc["dark-2"]};
-// 	padding: 0.2em 0.5em;
-
-// 	&:hover {
-// 		background: ${sc["light-1"]};
-// 		font-weight: 700;
-// 		color: ${sc["dark-1"]};
-// 		/* border-style: inset;
-// 		border: 1px solid red; */
-// 	}
-// `;
 
 export const Title = styled.span`
 	font-family: ${sc["font-family"]};

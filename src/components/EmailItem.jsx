@@ -7,7 +7,7 @@ import {
 	RedCircle,
 } from "./styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSearch, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import sc from "../styles-config";
 export default function EmailItem({ email, emails, setEmails }) {
 	const [hovered, setHovered] = useState(false);
@@ -23,8 +23,9 @@ export default function EmailItem({ email, emails, setEmails }) {
 			<Padding v="0.5em">
 				<Flex>
 					<StyledEmail href={`mailto: ${email}`}>{email}</StyledEmail>
-					<Padding display="inline" l="1em">
+					{hovered && (
 						<RedCircle
+							style={{ right: "1em", position: "absolute" }}
 							onClick={() => {
 								let index = emails.indexOf(email);
 								emails.splice(index, 1);
@@ -37,7 +38,7 @@ export default function EmailItem({ email, emails, setEmails }) {
 								icon={faMinus}
 							/>
 						</RedCircle>
-					</Padding>
+					)}
 				</Flex>
 			</Padding>
 		</StyledListItem>

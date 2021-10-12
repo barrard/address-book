@@ -1,13 +1,22 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Context from "../Context";
 import { FullScreenContainer } from "./styled";
 import SideBar from "./SideBar";
 import Details from "./Details";
 import uuid from "react-uuid";
 
-const blankContact = () => ({ id: uuid(), fName: "", lName: "", emails: [] });
+const blankContact = () => ({
+	id: uuid(),
+	fName: "",
+	lName: "",
+	emails: [],
+	saved: false,
+	edits: false,
+});
 export default function AddressBook() {
+	const [addNew, setAddNew] = useState(false);
 	const [contacts, setContacts] = useState({});
+	const [filterContacts, setFilterContacts] = useState({});
 	const [selectedContact, setSelectedContact] = useState(blankContact());
 
 	//Details form state
@@ -16,24 +25,58 @@ export default function AddressBook() {
 	const [lName, setLName] = useState(selectedContact.lName);
 	const [emails, setEmails] = useState(selectedContact.emails);
 	const [newEmail, setNewEmail] = useState("");
+	const [search, setSearch] = useState("");
 
 	useEffect(() => {
-		//get form local store
+		//get from local store
 		let contacts = JSON.parse(localStorage.getItem("contacts"));
 		setContacts({ ...contacts });
+		setFilterContacts({ ...contacts });
 	}, []);
+
+	//Search events
+	useEffect(() => {
+		console.log(search);
+		let foundContacts = {};
+
+		Object.entries(contacts).forEach(([id, contact]) => {
+			let { fName, lName, emails } = contact;
+			//find names that start with search
+			if (fName.toLowerCase().startsWith(search)) {
+				foundContacts[id] = contact;
+			}
+			if (lName.toLowerCase().startsWith(search)) {
+				foundContacts[id] = contact;
+			}
+
+			//find emails that include
+			emails.forEach((email) => {
+				if (email.toLowerCase().includes(search)) {
+					foundContacts[id] = contact;
+				}
+			});
+		});
+		setFilterContacts(foundContacts);
+	}, [search, contacts]);
 
 	// sets local state whenever selectedContact updates
 	useEffect(() => {
 		setFName(selectedContact.fName);
 		setLName(selectedContact.lName);
-		setEmails(selectedContact.emails);
+		setEmails([...selectedContact.emails]);
 		setId(selectedContact.id);
 	}, [selectedContact]);
 
+	useEffect(() => {
+		if (selectedContact.edits) return;
+		setSelectedContact({ ...selectedContact, edits: true });
+	}, [emails, fName, lName, selectedContact]);
+
 	const validateContact = (contact) => {
-		if (!fName) return alert("Contact needs a First Name");
-		if (!lName) return alert("Contact needs a Last Name");
+		let _fName = fName.trim();
+		let _lName = lName.trim();
+		if (!_fName) return alert("Contact needs a First Name");
+		if (!_lName) return alert("Contact needs a Last Name");
 		return true;
 	};
 
@@ -45,6 +88,7 @@ export default function AddressBook() {
 		) {
 			delete contacts[selectedContact.id];
 			setContacts({ ...contacts });
+			setSelectedContact(blankContact());
 		}
 	};
 
@@ -52,14 +96,20 @@ export default function AddressBook() {
 		if (!validateContact(contact)) return;
 		//validate
 		contacts[id] = {
-			fName,
-			lName,
+			id,
+			fName: fName.trim(),
+			lName: lName.trim(),
 			emails,
+			saved: true,
+			edits: false,
 		};
 
+		setSelectedContact({ ...contacts[id] });
 		setContacts({ ...contacts });
+		setAddNew(false);
 		//localstore save
 		localStorage.setItem("contacts", JSON.stringify(contacts));
+		alert(`Saved contact ${fName} ${lName}`);
 	};
 
 	const createNewContact = () => {
@@ -69,15 +119,20 @@ export default function AddressBook() {
 	return (
 		<Context.Provider
 			value={{
+				addNew,
 				contacts,
 				createNewContact,
 				deleteContact,
 				emails,
+				filterContacts,
 				fName,
 				lName,
 				newEmail,
 				selectedContact,
 				saveContact,
+				search,
+				setAddNew,
+				setSearch,
 				setFName,
 				setLName,
 				setEmails,

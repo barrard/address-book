@@ -5,15 +5,16 @@ import { ListContainer, Text } from "./styled";
 import Contact from "./Contact";
 
 export default function ContactsList() {
-	let { contacts } = useContext(Context);
+	let { filterContacts } = useContext(Context);
 
-	console.log(contacts);
 	return (
 		<ListContainer>
-			{Object.keys(contacts).length === 0 && <Text>No Contacts</Text>}
-			{Object.keys(contacts).length > 0 &&
-				Object.keys(contacts).map((id) => (
-					<Contact contact={contacts[id]} key={id} />
+			{Object.keys(filterContacts).length === 0 && (
+				<Text>No Contacts</Text>
+			)}
+			{Object.keys(filterContacts).length > 0 &&
+				Object.keys(filterContacts).map((id) => (
+					<Contact contact={filterContacts[id]} key={id} />
 				))}
 		</ListContainer>
 	);

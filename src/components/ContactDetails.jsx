@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Context from "../Context";
 import { Margin, Flex, Padding, Label, ListContainer } from "./styled";
 import Button from "./Button";
@@ -50,8 +50,19 @@ export default function ContactDetails() {
 
 			{/* emails list */}
 			<Label>Emails</Label>
-			<ListContainer>
-				<Padding display="inline-block" l="5px">
+			<ListContainer
+			// style={{ display: "inline-block", paddingLeft: "5px" }}
+			>
+				<Padding
+					style={{
+						maxHeight: "400px",
+						overflowX: "auto",
+						width: "20em",
+					}}
+					display="inline-block"
+					l="5px"
+				>
+					{/* <div style={{ maxHeight: "400px", overflow: "scroll" }}> */}
 					{emails.map((email) => (
 						<EmailItem
 							key={email}
@@ -60,9 +71,9 @@ export default function ContactDetails() {
 							setEmails={setEmails}
 						/>
 					))}
+					{/* </div> */}
 				</Padding>
 			</ListContainer>
-
 			{/* Email input and submit */}
 			<Flex align="center">
 				<Padding r="1em">
