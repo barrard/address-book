@@ -10,7 +10,7 @@ export default function ContactsList() {
 	return (
 		<ListContainer>
 			{Object.keys(filterContacts).length === 0 && (
-				<Text>No Contacts</Text>
+				<Text style={{ paddingLeft: "2em" }}>No Contacts</Text>
 			)}
 			{Object.keys(filterContacts).length > 0 &&
 				Object.keys(filterContacts).map((id) => (
