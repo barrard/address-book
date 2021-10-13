@@ -42,16 +42,16 @@ export default function AddressBook() {
     Object.entries(contacts).forEach(([id, contact]) => {
       let { fName, lName, emails } = contact;
       //find names that start with search
-      if (fName.toLowerCase().includes(search)) {
+      if (fName.toLowerCase().includes(search.toLowerCase())) {
         foundContacts[id] = contact;
       }
-      if (lName.toLowerCase().includes(search)) {
+      if (lName.toLowerCase().includes(search.toLowerCase())) {
         foundContacts[id] = contact;
       }
 
       //find emails that include
       emails.forEach((email) => {
-        if (email.toLowerCase().includes(search)) {
+        if (email.toLowerCase().includes(search.toLowerCase())) {
           foundContacts[id] = contact;
         }
       });
