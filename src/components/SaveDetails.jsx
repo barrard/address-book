@@ -11,13 +11,18 @@ export default function SaveDetails() {
 		selectedContact,
 		deleteContact,
 		setNewEmail,
+		edits,
 	} = useContext(Context);
+	console.log(selectedContact.edits);
 	return (
 		<ButtonsContainer>
-			{/* SAVE */}
 			{selectedContact.edits && (
 				<>
+					{/* SAVE */}
 					<Button
+						style={{
+							boxShadow: edits ? "0px 0px 10px 2px red" : "none",
+						}}
 						onClick={saveContact}
 						bgColor={sc["primary"]}
 						color={sc["white"]}

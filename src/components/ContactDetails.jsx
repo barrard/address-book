@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Context from "../Context";
 import { Margin, Flex, Padding, Label, ListContainer } from "./styled";
 import Button from "./Button";
@@ -14,10 +14,16 @@ export default function ContactDetails() {
 		lName,
 		setLName,
 		emails,
+		edits,
+		emailEdits,
+		setEmailEdits,
+		setEdits,
 		setEmails,
 		newEmail,
 		setNewEmail,
 	} = useContext(Context);
+
+	console.log(emails);
 
 	const validateNewEmail = (newEmail) => {
 		//https://stackoverflow.com/a/9204568/5231665
@@ -34,6 +40,7 @@ export default function ContactDetails() {
 					<FormInput
 						onChange={(e) => {
 							setFName(e.target.value);
+							if (!edits) setEdits(true);
 						}}
 						value={fName}
 						placeholder="first name"
@@ -41,7 +48,10 @@ export default function ContactDetails() {
 					/>
 				</Padding>
 				<FormInput
-					onChange={(e) => setLName(e.target.value)}
+					onChange={(e) => {
+						setLName(e.target.value);
+						if (!edits) setEdits(true);
+					}}
 					value={lName}
 					placeholder="last name"
 					label="Last Name"
@@ -78,19 +88,27 @@ export default function ContactDetails() {
 			<Flex align="center">
 				<Padding r="1em">
 					<FormInput
-						onChange={(e) => setNewEmail(e.target.value)}
+						onChange={(e) => {
+							setNewEmail(e.target.value);
+							if (!emailEdits) setEmailEdits(true);
+						}}
 						value={newEmail}
 						placeholder="email"
 						type="email"
 					/>
 				</Padding>
 				<Button
+					style={{
+						boxShadow: emailEdits ? "0px 0px 10px 2px red" : "none",
+					}}
 					onClick={() => {
 						//validate email
 						if (validateNewEmail(newEmail)) {
 							console.log(newEmail);
 							setEmails([...emails, newEmail]);
 							setNewEmail("");
+							setEmailEdits(false);
+							if (!edits) setEdits(true);
 						}
 					}}
 					bgColor={sc["primary"]}

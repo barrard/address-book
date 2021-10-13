@@ -11,13 +11,14 @@ const blankContact = () => ({
 	lName: "",
 	emails: [],
 	saved: false,
-	edits: false,
 });
 export default function AddressBook() {
+	const [edits, setEdits] = useState(false);
 	const [addNew, setAddNew] = useState(false);
 	const [contacts, setContacts] = useState({});
 	const [filterContacts, setFilterContacts] = useState({});
 	const [selectedContact, setSelectedContact] = useState(blankContact());
+	const [emailEdits, setEmailEdits] = useState(false);
 
 	//Details form state
 	const [id, setId] = useState(selectedContact.id);
@@ -107,7 +108,7 @@ export default function AddressBook() {
 		setSelectedContact({ ...contacts[id] });
 		setContacts({ ...contacts });
 		setAddNew(false);
-		//localstore save
+		setEdits(false);
 		localStorage.setItem("contacts", JSON.stringify(contacts));
 		alert(`Saved contact ${fName} ${lName}`);
 	};
@@ -123,7 +124,9 @@ export default function AddressBook() {
 				contacts,
 				createNewContact,
 				deleteContact,
+				edits,
 				emails,
+				emailEdits,
 				filterContacts,
 				fName,
 				lName,
@@ -132,11 +135,13 @@ export default function AddressBook() {
 				saveContact,
 				search,
 				setAddNew,
-				setSearch,
+				setEdits,
+				setEmailEdits,
+				setEmails,
 				setFName,
 				setLName,
-				setEmails,
 				setNewEmail,
+				setSearch,
 				setSelectedContact,
 			}}
 		>
