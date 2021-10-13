@@ -42,10 +42,10 @@ export default function AddressBook() {
     Object.entries(contacts).forEach(([id, contact]) => {
       let { fName, lName, emails } = contact;
       //find names that start with search
-      if (fName.toLowerCase().startsWith(search)) {
+      if (fName.toLowerCase().includes(search)) {
         foundContacts[id] = contact;
       }
-      if (lName.toLowerCase().startsWith(search)) {
+      if (lName.toLowerCase().includes(search)) {
         foundContacts[id] = contact;
       }
 
