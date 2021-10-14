@@ -4,15 +4,8 @@ import sc from "../../styles-config";
 import { Text, Padding, StyledListItem } from "./styled";
 export default function Contact({ contact }) {
 	let { id } = contact;
-	let {
-		setSelectedContact,
-		selectedContact,
-		setAddNew,
-		edits,
-		setEdits,
-		setEmailEdits,
-		setNewEmail,
-	} = useContext(Context);
+	let { setSelectedContact, selectedContact, setAddNew, edits, setEdits } =
+		useContext(Context);
 
 	const selected = selectedContact.id === id;
 	const name = `${contact.fName} ${contact.lName}`;
@@ -28,8 +21,8 @@ export default function Contact({ contact }) {
 
 				setAddNew(false);
 				setEdits(false);
-				setEmailEdits(false);
-				setNewEmail("");
+				// setEmailEdits(false);
+				// setNewEmail("");
 				setSelectedContact(contact);
 			}}
 		>

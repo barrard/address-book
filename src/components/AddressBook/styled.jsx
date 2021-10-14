@@ -162,7 +162,8 @@ export const RoundButton = styled.button`
 	font-size: 1em;
 	cursor: pointer;
 	transition: all 0.3;
-	box-shadow: ${({ addNew }) => (addNew ? "0px 0px 9px 1px black" : "none")};
+	box-shadow: ${({ addNew }) =>
+		addNew ? `0px 0px 9px 1px ${sc["primary"]}` : "none"};
 
 	&:hover {
 		background: rgba(111, 111, 111, 0.5);

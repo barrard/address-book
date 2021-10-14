@@ -1,28 +1,32 @@
 import React, { useContext } from "react";
 import { ButtonsContainer } from "./styled";
 import Button from "./Button";
-import Context from "./Context";
+import ContactContext from "./ContactContext";
 
 import sc from "../../styles-config";
 export default function SaveDetails() {
 	let {
-		saveContact,
+		addNewContact,
 		setSelectedContact,
 		selectedContact,
 		deleteContact,
 		setNewEmail,
-		edits,
-	} = useContext(Context);
+		unsavedEdits,
+		setUnsavedEdits,
+	} = useContext(ContactContext);
+
 	return (
 		<ButtonsContainer>
-			{edits && (
+			{unsavedEdits && (
 				<>
 					{/* SAVE */}
 					<Button
 						style={{
-							boxShadow: edits ? "0px 0px 10px 2px red" : "none",
+							boxShadow: unsavedEdits
+								? `0px 0px 9px 1px ${sc["primary"]}`
+								: "none",
 						}}
-						onClick={saveContact}
+						onClick={addNewContact}
 						bgColor={sc["primary"]}
 						color={sc["white"]}
 						text="Save Contact"
@@ -32,10 +36,8 @@ export default function SaveDetails() {
 					<Button
 						style={{ marginLeft: "2em" }}
 						onClick={() => {
-							setSelectedContact({
-								...selectedContact,
-								edits: false,
-							});
+							setSelectedContact({ ...selectedContact });
+							setUnsavedEdits(false);
 							setNewEmail("");
 						}}
 						color={sc["primary"]}

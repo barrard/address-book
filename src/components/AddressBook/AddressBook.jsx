@@ -13,19 +13,14 @@ const blankContact = () => ({
 	saved: false,
 });
 export default function AddressBook() {
-	const [edits, setEdits] = useState(false);
 	const [addNew, setAddNew] = useState(false);
+	const [edits, setEdits] = useState(false);
+
 	const [contacts, setContacts] = useState({});
 	const [filterContacts, setFilterContacts] = useState({});
-	const [selectedContact, setSelectedContact] = useState(blankContact());
-	const [emailEdits, setEmailEdits] = useState(false);
 
-	//Details form state
-	const [id, setId] = useState(selectedContact.id);
-	const [fName, setFName] = useState(selectedContact.fName);
-	const [lName, setLName] = useState(selectedContact.lName);
-	const [emails, setEmails] = useState(selectedContact.emails);
-	const [newEmail, setNewEmail] = useState("");
+	const [selectedContact, setSelectedContact] = useState(blankContact());
+
 	const [search, setSearch] = useState("");
 
 	useEffect(() => {
@@ -59,27 +54,6 @@ export default function AddressBook() {
 		setFilterContacts(foundContacts);
 	}, [search, contacts]);
 
-	// sets local state whenever selectedContact updates
-	useEffect(() => {
-		setFName(selectedContact.fName);
-		setLName(selectedContact.lName);
-		setEmails([...selectedContact.emails]);
-		setId(selectedContact.id);
-	}, [selectedContact]);
-
-	useEffect(() => {
-		if (selectedContact.edits) return;
-		setSelectedContact({ ...selectedContact, edits: true });
-	}, [emails, fName, lName, selectedContact]);
-
-	const validateContact = (contact) => {
-		let _fName = fName.trim();
-		let _lName = lName.trim();
-		if (!_fName) return alert("Contact needs a First Name");
-		if (!_lName) return alert("Contact needs a Last Name");
-		return true;
-	};
-
 	const deleteContact = (id) => {
 		if (
 			window.confirm(
@@ -93,23 +67,18 @@ export default function AddressBook() {
 	};
 
 	const saveContact = (contact) => {
-		if (!validateContact(contact)) return;
+		let { id, fName, lName } = contact;
 		//validate
 		contacts[id] = {
-			id,
-			fName: fName.trim(),
-			lName: lName.trim(),
-			emails,
+			...contact,
 			saved: true,
-			edits: false,
 		};
 
 		setSelectedContact({ ...contacts[id] });
 		setContacts({ ...contacts });
 		setAddNew(false);
-		setEdits(false);
 		localStorage.setItem("contacts", JSON.stringify(contacts));
-		alert(`Saved contact ${fName} ${lName}`);
+		// alert(`Saved contact ${fName} ${lName}`);
 	};
 
 	const createNewContact = () => {
@@ -123,25 +92,15 @@ export default function AddressBook() {
 				contacts,
 				createNewContact,
 				deleteContact,
-				edits,
-				emails,
-				emailEdits,
 				filterContacts,
-				fName,
-				lName,
-				newEmail,
 				selectedContact,
 				saveContact,
 				search,
 				setAddNew,
-				setEdits,
-				setEmailEdits,
-				setEmails,
-				setFName,
-				setLName,
-				setNewEmail,
 				setSearch,
 				setSelectedContact,
+				edits,
+				setEdits,
 			}}
 		>
 			<FullScreenContainer>

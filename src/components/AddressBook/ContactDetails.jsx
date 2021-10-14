@@ -7,6 +7,7 @@ import EmailItem from "./EmailItem";
 
 import sc from "../../styles-config";
 
+import ContactContext from "./ContactContext";
 export default function ContactDetails() {
 	let {
 		fName,
@@ -14,14 +15,14 @@ export default function ContactDetails() {
 		lName,
 		setLName,
 		emails,
-		edits,
+		unsavedEdits,
 		emailEdits,
 		setEmailEdits,
-		setEdits,
+		setUnsavedEdits,
 		setEmails,
 		newEmail,
 		setNewEmail,
-	} = useContext(Context);
+	} = useContext(ContactContext);
 
 	const validateNewEmail = (newEmail) => {
 		//https://stackoverflow.com/a/9204568/5231665
@@ -30,6 +31,7 @@ export default function ContactDetails() {
 		if (emails.indexOf(newEmail) >= 0) return alert("Email already exists");
 		return true;
 	};
+
 	return (
 		<Margin t="5em" l="4em">
 			{/* Name Inputs */}
@@ -38,7 +40,7 @@ export default function ContactDetails() {
 					<FormInput
 						onChange={(e) => {
 							setFName(e.target.value);
-							if (!edits) setEdits(true);
+							if (!unsavedEdits) setUnsavedEdits(true);
 						}}
 						value={fName}
 						placeholder="first name"
@@ -48,7 +50,7 @@ export default function ContactDetails() {
 				<FormInput
 					onChange={(e) => {
 						setLName(e.target.value);
-						if (!edits) setEdits(true);
+						if (!unsavedEdits) setUnsavedEdits(true);
 					}}
 					value={lName}
 					placeholder="last name"
@@ -97,7 +99,9 @@ export default function ContactDetails() {
 				</Padding>
 				<Button
 					style={{
-						boxShadow: emailEdits ? "0px 0px 10px 2px red" : "none",
+						boxShadow: emailEdits
+							? `0px 0px 10px 2px ${sc["primary"]}`
+							: "none",
 					}}
 					onClick={() => {
 						//validate email
@@ -105,7 +109,7 @@ export default function ContactDetails() {
 							setEmails([...emails, newEmail]);
 							setNewEmail("");
 							setEmailEdits(false);
-							if (!edits) setEdits(true);
+							if (!unsavedEdits) setUnsavedEdits(true);
 						}
 					}}
 					bgColor={sc["primary"]}

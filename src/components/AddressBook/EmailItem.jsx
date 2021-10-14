@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
 	StyledListItem,
 	StyledEmail,
@@ -9,7 +9,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import sc from "../../styles-config";
+import ContactContext from "./ContactContext";
 export default function EmailItem({ email, emails, setEmails }) {
+	let { setUnsavedEdits } = useContext(ContactContext);
 	const [hovered, setHovered] = useState(false);
 	return (
 		<StyledListItem
@@ -30,6 +32,7 @@ export default function EmailItem({ email, emails, setEmails }) {
 								let index = emails.indexOf(email);
 								emails.splice(index, 1);
 								setEmails([...emails]);
+								setUnsavedEdits(true);
 							}}
 						>
 							<FontAwesomeIcon
