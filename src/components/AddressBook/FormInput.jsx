@@ -1,6 +1,6 @@
 import React from "react";
 import { Input, Flex, LightBorder, Margin, Label, InputIcon } from "./styled";
-import sc from "../styles-config";
+import sc from "../../styles-config";
 export default function FormInput({
 	value,
 	onChange,

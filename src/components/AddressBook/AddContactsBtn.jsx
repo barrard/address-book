@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import Context from "../Context";
+import Context from "./Context";
 import { RoundButton } from "./styled";
 
-import sc from "../styles-config";
+import sc from "../../styles-config";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";

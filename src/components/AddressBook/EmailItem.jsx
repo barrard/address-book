@@ -8,7 +8,7 @@ import {
 } from "./styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
-import sc from "../styles-config";
+import sc from "../../styles-config";
 export default function EmailItem({ email, emails, setEmails }) {
 	const [hovered, setHovered] = useState(false);
 	return (

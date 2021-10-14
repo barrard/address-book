@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import Context from "../Context";
-import sc from "../styles-config";
+import Context from "./Context";
+import sc from "../../styles-config";
 import { Text, Padding, StyledListItem } from "./styled";
 export default function Contact({ contact }) {
 	let { id } = contact;

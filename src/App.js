@@ -1,4 +1,4 @@
-import AddressBook from "./components/AddressBook";
+import { AddressBook } from "./components";
 
 function App() {
 	return <AddressBook />;

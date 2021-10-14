@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 
-import sc from "../styles-config";
+import sc from "../../styles-config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import Context from "../Context";
+import Context from "./Context";
 import FormInput from "./FormInput";
 export default function SearchInput() {
 	let { search, setSearch } = useContext(Context);
