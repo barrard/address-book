@@ -1,25 +1,40 @@
 import styled from "styled-components";
 import sc from "../../styles-config";
+import { Add as MuiAddIcon } from "@material-ui/icons";
 
-export const Button = styled.button`
-	user-select: none;
-	width: 133px;
-	height: 36px;
-	border: 1px solid ${({ borderColor, color }) => borderColor || color};
-	color: ${({ color }) => color};
-	background: ${({ bgColor }) => bgColor};
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	padding: 0.1em;
-	border-radius: ${({ round }) => (round ? "50%" : sc["border-radius"])};
-	overflow: hidden;
-	cursor: pointer;
+import {
+	Button as MuiButton,
+	IconButton as MuiIconButton,
+	Paper,
+	Typography,
+	TextField,
+	InputAdornment,
+} from "@mui/material";
 
-	&:hover {
-		border: 1px solid rgba(111, 111, 111, 0.5);
-	}
-`;
+export const Button = ({
+	size = "medium",
+	color = "primary",
+	children,
+	variant = "contained",
+	style,
+	onClick,
+}) => (
+	<MuiButton
+		onClick={onClick}
+		style={{
+			...style,
+			textTransform: "none",
+			userSelect: "none",
+			minWidth: "133px",
+			height: "36px",
+		}}
+		size={size}
+		color={color}
+		variant={variant}
+	>
+		{children}
+	</MuiButton>
+);
 
 export const ButtonsContainer = styled.div`
 	padding-left: 5em;
@@ -30,10 +45,15 @@ export const ButtonsContainer = styled.div`
 	width: 100%;
 `;
 export const DetailsContainer = styled.div`
-	width: 800px;
+	/* width: 800px; */
+	width: 100%;
 	background: ${sc["light-1"]};
 	position: relative;
 `;
+
+export const EmailsList = ({ style, children }) => (
+	<Paper style={{ display: "inline-flex", ...style }}>{children}</Paper>
+);
 
 export const Flex = styled.div`
 	position: relative;
@@ -46,7 +66,7 @@ export const FullScreenContainer = styled.div`
 	min-width: 100vw;
 	max-width: 100vw;
 	min-height: 100vh;
-	max-height: 100vh;
+	/* max-height: 100vh; */
 	box-sizing: border-box;
 	overflow: hidden;
 	display: flex;
@@ -54,48 +74,44 @@ export const FullScreenContainer = styled.div`
 	background: #599;
 `;
 
-export const Input = styled.input`
-	width: 100%;
-	min-width: 10px;
-	font-family: ${sc["font-family"]};
-	font-style: ${sc["font-style"]};
-	font-weight: ${sc["font-weight"]};
-	font-size: ${sc["font-size"]};
-	line-height: ${sc["line-height"]};
-	border: none;
-	padding: 7px 15px;
-	position: relative;
-
-	::placeholder,
-	::-webkit-input-placeholder {
-		font-family: ${sc["font-family"]};
-		font-style: ${sc["font-style"]};
-		font-weight: ${sc["font-weight"]};
-		font-size: ${sc["font-size"]};
-		line-height: ${sc["line-height"]};
-	}
-	:-ms-input-placeholder {
-		color: red;
-		font-family: ${sc["font-family"]};
-		font-style: ${sc["font-style"]};
-		font-weight: ${sc["font-weight"]};
-		font-size: ${sc["font-size"]};
-		line-height: ${sc["line-height"]};
-	}
-`;
+export const Input = ({ icon, label, value, onChange, type, placeholder }) => (
+	<TextField
+		size="small"
+		value={value}
+		onChange={onChange}
+		// type={type}
+		placeholder={placeholder}
+		label={label}
+		InputProps={{
+			endAdornment: (
+				<InputAdornment position="end">{icon}</InputAdornment>
+			),
+		}}
+		// endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+	/>
+);
 
 export const InputIcon = styled.div`
 	position: absolute;
 	right: 15px;
 `;
 
-export const Label = styled.label`
-	color: #999;
-	font-size: 14px;
-	line-height: 19px;
-	font-family: ${sc["font-family"]};
-	padding-left: 15px;
-`;
+export const Label = ({ style, children, variant = "p" }) => (
+	<Typography
+		variant={variant}
+		style={{
+			display: "inline-block",
+			// color: #999,
+			fontSize: "14px",
+			lineHeight: "19px",
+			fontFamily: sc["font-family"],
+			paddingLeft: "15px",
+			...style,
+		}}
+	>
+		{children}
+	</Typography>
+);
 
 export const LightBorder = styled.div`
 	border: 1px solid ${sc["light-2"]};
@@ -107,8 +123,9 @@ export const LightBorder = styled.div`
 `;
 
 export const ListContainer = styled.div`
+	/* position: relative; */
 	overflow-y: auto;
-	height: 100%;
+	/* height: 100%; */
 `;
 
 export const Margin = styled.div`
@@ -147,28 +164,25 @@ export const RedCircle = styled.div`
 	}
 `;
 
-export const RoundButton = styled.button`
-	border: ${({ borderColor }) =>
-		borderColor ? `1px solid ${borderColor}` : "none"};
-	background: ${({ bgColor }) => bgColor};
-	color: ${({ color }) => color};
-	justify-content: center;
-	align-items: center;
-	padding: 0.3em;
-	border-radius: 50%;
-	display: inline-flex;
-	min-width: 2em;
-	min-height: 2em;
-	font-size: 1em;
-	cursor: pointer;
-	transition: all 0.3;
-	box-shadow: ${({ addNew }) =>
-		addNew ? `0px 0px 9px 1px ${sc["primary"]}` : "none"};
+export const RoundButton = ({ onClick, style, icon, size = "small" }) => (
+	<MuiIconButton onClick={onClick} size={size} style={{ ...style }}>
+		{icon}
+	</MuiIconButton>
+);
 
-	&:hover {
-		background: rgba(111, 111, 111, 0.5);
-	}
-`;
+export const AddButton = ({ onClick, addNew }) => {
+	return (
+		<RoundButton
+			onClick={onClick}
+			icon={<MuiAddIcon />}
+			style={{
+				background: sc["primary"],
+				color: sc["white"],
+				boxShadow: addNew ? `0px 0px 9px 1px ${sc["primary"]}` : "none",
+			}}
+		/>
+	);
+};
 
 export const SideBarContainer = styled.div`
 	background: ${sc["white"]};
@@ -181,7 +195,7 @@ export const SideBarContainer = styled.div`
 
 export const StyledListItem = styled.div`
 	color: ${sc["dark-2"]};
-	background: ${({ selected }) => (selected ? sc["light-1"] : sc["white"])};
+	background: ${({ selected }) => (selected ? sc["light-gradient"] : "none")};
 
 	&:hover {
 		background: ${sc["light-gradient"]};
@@ -199,13 +213,26 @@ export const StyledEmail = styled.a`
 	}
 `;
 
-export const Title = styled.span`
-	font-family: ${sc["font-family"]};
-	font-style: ${sc["font-style"]};
-	font-weight: ${sc["font-weight"]};
-	font-size: ${sc["title-font-size"]};
-	line-height: ${sc["title-line-height"]};
-`;
+export const Title = ({ children }) => (
+	<Typography
+		style={{
+			fontFamily: sc["font-family"],
+			fontStyle: sc["font-style"],
+			fontWeight: sc["font-weight"],
+			fontSize: sc["title-font-size"],
+			lineHeight: sc["title-line-height"],
+		}}
+	>
+		{children}
+	</Typography>
+);
+// export const Title = styled.span`
+// 	font-family: ${sc["font-family"]};
+// 	font-style: ${sc["font-style"]};
+// 	font-weight: ${sc["font-weight"]};
+// 	font-size: ${sc["title-font-size"]};
+// 	line-height: ${sc["title-line-height"]};
+// `;
 
 export const Text = styled.span`
 	color: ${({ color }) => color};

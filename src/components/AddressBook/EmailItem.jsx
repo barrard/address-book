@@ -22,7 +22,7 @@ export default function EmailItem({ email, emails, setEmails }) {
 				setHovered(false);
 			}}
 		>
-			<Padding v="0.5em">
+			<Padding l="5px" v="0.5em">
 				<Flex>
 					<StyledEmail href={`mailto: ${email}`}>{email}</StyledEmail>
 					{hovered && (

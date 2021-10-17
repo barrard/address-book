@@ -1,9 +1,21 @@
 import React, { useContext } from "react";
+import { Scrollable } from "webrix/components";
+import Container from "@mui/material/Container";
+
 import Context from "./Context";
-import { Margin, Flex, Padding, Label, ListContainer } from "./styled";
+import {
+	Margin,
+	Flex,
+	Padding,
+	Label,
+	ListContainer,
+	EmailsList,
+} from "./styled";
 import Button from "./Button";
 import FormInput from "./FormInput";
 import EmailItem from "./EmailItem";
+
+import Grid from "@mui/material/Grid";
 
 import sc from "../../styles-config";
 
@@ -33,7 +45,14 @@ export default function ContactDetails() {
 	};
 
 	return (
-		<Margin t="5em" l="4em">
+		<Grid
+			sx={{
+				mt: "5em",
+				mr: "1em",
+				pr: "1em",
+				ml: { xs: "1em", md: "4em" },
+			}}
+		>
 			{/* Name Inputs */}
 			<Flex>
 				<Padding r="1em">
@@ -58,36 +77,54 @@ export default function ContactDetails() {
 				/>
 			</Flex>
 
-			{/* emails list */}
-			<Label>Emails</Label>
-			<ListContainer
-			// style={{ display: "inline-block", paddingLeft: "5px" }}
+			<div
+				style={{
+					marginTop: "2em",
+					marginBottom: "2em",
+					display: "inline-flex",
+					flexDirection: "column",
+				}}
 			>
-				<Padding
-					style={{
-						maxHeight: "400px",
-						overflowX: "auto",
-						width: "20em",
-					}}
-					display="inline-block"
-					l="5px"
-				>
-					{/* <div style={{ maxHeight: "400px", overflow: "scroll" }}> */}
-					{emails.map((email) => (
-						<EmailItem
-							key={email}
-							email={email}
-							emails={emails}
-							setEmails={setEmails}
-						/>
-					))}
-					{/* </div> */}
-				</Padding>
-			</ListContainer>
+				{/* emails list */}
+				<Label style={{ fontWeight: "bold" }} variant="h6">
+					Emails
+				</Label>
+				<EmailsList>
+					<div
+						style={{ height: "200px", width: "20em" }}
+						className="scrollbar-shadow"
+					>
+						<Scrollable.Shadow>
+							<Scrollable>
+								<div
+									style={{
+										maxHeight: "300px",
+									}}
+								>
+									{emails.length <= 0 && (
+										<Label variant="h6">No emails</Label>
+									)}
+									{emails.length > 0 &&
+										emails.map((email) => (
+											<EmailItem
+												key={email}
+												email={email}
+												emails={emails}
+												setEmails={setEmails}
+											/>
+										))}
+								</div>
+							</Scrollable>
+						</Scrollable.Shadow>
+					</div>
+				</EmailsList>
+			</div>
+
 			{/* Email input and submit */}
 			<Flex align="center">
 				<Padding r="1em">
 					<FormInput
+						label="Email"
 						onChange={(e) => {
 							setNewEmail(e.target.value);
 							if (!emailEdits) setEmailEdits(true);
@@ -99,6 +136,7 @@ export default function ContactDetails() {
 				</Padding>
 				<Button
 					style={{
+						color: "white",
 						boxShadow: emailEdits
 							? `0px 0px 10px 2px ${sc["primary"]}`
 							: "none",
@@ -113,10 +151,10 @@ export default function ContactDetails() {
 						}
 					}}
 					bgColor={sc["primary"]}
-					color={sc["white"]}
+					// color={sc["white"]}
 					text="Add email"
 				></Button>
 			</Flex>
-		</Margin>
+		</Grid>
 	);
 }

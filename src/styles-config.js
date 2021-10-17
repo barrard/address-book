@@ -4,9 +4,9 @@ const styles = {
 	"font-style": "normal",
 	"font-weight": "normal",
 	"font-size": "18px",
+	"line-height": "25px",
 	"title-font-size": "36px",
 	"title-line-height": "49px",
-	"line-height": "25px",
 
 	//border
 	"border-radius": "4px",
@@ -20,7 +20,7 @@ const styles = {
 	//light colors
 	"light-1": "#F8F8F8",
 	"light-2": "#E5E5E5",
-	// "light-3": "#aaa",
+	"light-3": "#E8E8E8",
 
 	//dark colors
 	"dark-1": "#444444",
@@ -28,10 +28,12 @@ const styles = {
 	"dark-3": "#999",
 
 	//Gradient
-	"light-gradient":
-		"linear-gradient(90.27deg, #E8E8E8 12.78%, #F8F8F8 90.73%);",
+	"light-gradient": function () {
+		return `linear-gradient(90.27deg, ${styles["light-3"]} 12.78%, ${styles["light-1"]} 90.73%);`;
+	},
 
 	sideWidth: "225px",
+	drawerWidth: 240,
 };
 
 export default styles;

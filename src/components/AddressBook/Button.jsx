@@ -8,9 +8,13 @@ export default function ButtonComponent({
 	bgColor,
 	borderColor,
 	style,
+	variant,
+	size,
 }) {
 	return (
 		<Button
+			size={size}
+			variant={variant}
 			style={{ ...style }}
 			onClick={onClick}
 			bgColor={bgColor}

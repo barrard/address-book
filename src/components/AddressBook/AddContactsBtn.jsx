@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Context from "./Context";
-import { RoundButton } from "./styled";
+import { AddButton } from "./styled";
 
 import sc from "../../styles-config";
 
@@ -11,16 +11,15 @@ export default function AddContactsBtn() {
 	let { createNewContact, addNew, setAddNew } = useContext(Context);
 
 	return (
-		<RoundButton
+		<AddButton
 			addNew={addNew}
 			onClick={() => {
+				console.log("click");
 				setAddNew(true);
 				createNewContact();
 			}}
-			color={sc["white"]}
-			bgColor={sc["primary"]}
 		>
-			<FontAwesomeIcon icon={faPlus} />
-		</RoundButton>
+			{/* <FontAwesomeIcon icon={faPlus} /> */}
+		</AddButton>
 	);
 }

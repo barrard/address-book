@@ -9,9 +9,10 @@ export default function SearchInput() {
 	let { search, setSearch } = useContext(Context);
 	return (
 		<FormInput
-			value={search}
+			label={"search"}
 			onChange={(e) => setSearch(e.target.value)}
 			placeholder={"search"}
+			value={search}
 			icon={
 				<FontAwesomeIcon
 					color={sc["dark-3"]}

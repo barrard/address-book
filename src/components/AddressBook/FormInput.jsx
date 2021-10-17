@@ -11,20 +11,18 @@ export default function FormInput({
 }) {
 	return (
 		<div>
-			<Label htmlFor={label}>{label}</Label>
-			<Margin b="1em" background={sc["white"]}>
-				<LightBorder>
-					<Flex align="center">
-						<Input
-							value={value}
-							onChange={onChange}
-							type={type}
-							placeholder={placeholder}
-						/>
-						{icon && <InputIcon>{icon}</InputIcon>}
-					</Flex>
-				</LightBorder>
-			</Margin>
+			{/* <Label htmlFor={label}>{label}</Label> */}
+			{/* <Margin b="1em" background={sc["white"]}> */}
+			{/* <LightBorder> */}
+			{/* <Flex align="center"> */}
+			<Input
+				label={label}
+				value={value}
+				onChange={onChange}
+				type={type}
+				placeholder={placeholder}
+				icon={icon}
+			/>
 		</div>
 	);
 }

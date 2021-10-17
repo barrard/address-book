@@ -4,6 +4,13 @@ import { FullScreenContainer } from "./styled";
 import SideBar from "./SideBar";
 import Details from "./Details";
 import uuid from "react-uuid";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import sc from "../../styles-config";
+import SideBarHeader from "./SideBarHeader";
 
 const blankContact = () => ({
 	id: uuid(),
@@ -22,6 +29,7 @@ export default function AddressBook() {
 	const [selectedContact, setSelectedContact] = useState(blankContact());
 
 	const [search, setSearch] = useState("");
+	const [mobileOpen, setMobileOpen] = React.useState(false);
 
 	useEffect(() => {
 		//get from local store
@@ -85,6 +93,45 @@ export default function AddressBook() {
 		setSelectedContact(blankContact());
 	};
 
+	const handleDrawerToggle = () => {
+		setMobileOpen(!mobileOpen);
+	};
+
+	const TopHeader = () => {
+		return (
+			<AppBar
+				position="fixed"
+				sx={{
+					backgroundColor: sc["light-1"],
+					width: { sm: `calc(100% - ${sc.drawerWidth}px)` },
+					ml: { sm: `${sc.drawerWidth}px` },
+					display: { sm: "none" },
+				}}
+			>
+				<Toolbar>
+					<IconButton
+						color="inherit"
+						aria-label="open drawer"
+						edge="start"
+						onClick={handleDrawerToggle}
+						sx={{ mr: 2, display: { sm: "none" } }}
+					>
+						<MenuIcon />
+					</IconButton>
+					<div
+						style={{
+							display: "inline-flex",
+							width: "100%",
+							justifyContent: "center",
+						}}
+					>
+						<SideBarHeader />
+					</div>
+				</Toolbar>
+			</AppBar>
+		);
+	};
+
 	return (
 		<Context.Provider
 			value={{
@@ -93,6 +140,8 @@ export default function AddressBook() {
 				createNewContact,
 				deleteContact,
 				filterContacts,
+				handleDrawerToggle,
+				mobileOpen,
 				selectedContact,
 				saveContact,
 				search,
@@ -101,9 +150,11 @@ export default function AddressBook() {
 				setSelectedContact,
 				edits,
 				setEdits,
+				setMobileOpen,
 			}}
 		>
-			<FullScreenContainer>
+			<FullScreenContainer id="MainContainer">
+				<TopHeader />
 				<SideBar />
 				<Details />
 			</FullScreenContainer>
