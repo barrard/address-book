@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Context from "./Context";
 import { FullScreenContainer } from "./styled";
+import { useConfirm } from "material-ui-confirm";
+
 import SideBar from "./SideBar";
 import Details from "./Details";
 import uuid from "react-uuid";
@@ -8,7 +10,8 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import Message from "./Message";
+
 import sc from "../../styles-config";
 import SideBarHeader from "./SideBarHeader";
 
@@ -20,8 +23,13 @@ const blankContact = () => ({
 	saved: false,
 });
 export default function AddressBook() {
+	const confirm = useConfirm();
+
 	const [addNew, setAddNew] = useState(false);
 	const [edits, setEdits] = useState(false);
+	const [message, setMessage] = useState("");
+	const [showMessage, setShowMessage] = useState(false);
+	const [messageType, setMessageType] = useState("success");
 
 	const [contacts, setContacts] = useState({});
 	const [filterContacts, setFilterContacts] = useState({});
@@ -63,15 +71,24 @@ export default function AddressBook() {
 	}, [search, contacts]);
 
 	const deleteContact = (id) => {
-		if (
-			window.confirm(
-				`Are you sure you want to delete ${selectedContact.fName} ${selectedContact.lName} from your contacts?`
-			)
-		) {
-			delete contacts[selectedContact.id];
-			setContacts({ ...contacts });
-			setSelectedContact(blankContact());
-		}
+		confirm({
+			cancellationButtonProps: { color: "error" },
+			confirmationButtonProps: { color: "primary" },
+			description: `Are you sure you want to delete ${selectedContact.fName} ${selectedContact.lName} from your contacts?`,
+		})
+			.then(() => {
+				delete contacts[selectedContact.id];
+				const { fName, lName } = selectedContact;
+				setContacts({ ...contacts });
+				setMessageType("info");
+				setMessage(`Deleted ${fName} ${lName}`);
+				setShowMessage(true);
+				setSelectedContact(blankContact());
+			})
+			.catch((e) => {
+				console.log(e);
+				console.log("is this an error");
+			});
 	};
 
 	const saveContact = (contact) => {
@@ -86,7 +103,10 @@ export default function AddressBook() {
 		setContacts({ ...contacts });
 		setAddNew(false);
 		localStorage.setItem("contacts", JSON.stringify(contacts));
-		// alert(`Saved contact ${fName} ${lName}`);
+
+		setMessage(`Saved ${fName} ${lName}`);
+		setMessageType("success");
+		setShowMessage(true);
 	};
 
 	const createNewContact = () => {
@@ -157,6 +177,12 @@ export default function AddressBook() {
 				<TopHeader />
 				<SideBar />
 				<Details />
+				<Message
+					severity={messageType}
+					setShow={setShowMessage}
+					show={showMessage}
+					message={message}
+				/>
 			</FullScreenContainer>
 		</Context.Provider>
 	);
