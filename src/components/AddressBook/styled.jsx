@@ -83,9 +83,11 @@ export const Input = ({ icon, label, value, onChange, type, placeholder }) => (
 		placeholder={placeholder}
 		label={label}
 		InputProps={{
-			endAdornment: (
-				<InputAdornment position="end">{icon}</InputAdornment>
-			),
+			...(icon && {
+				endAdornment: (
+					<InputAdornment position="end">{icon}</InputAdornment>
+				),
+			}),
 		}}
 		// endAdornment={<InputAdornment position="end">kg</InputAdornment>}
 	/>
